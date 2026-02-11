@@ -24,7 +24,7 @@ class TimeSlotReserveIntegrationTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue("""
                         {
-                          "userId": "%s"
+                          "holderId": "%s"
                         }
                         """.formatted(userId))
                 .exchange()
@@ -32,6 +32,6 @@ class TimeSlotReserveIntegrationTest {
                 .expectHeader().contentType(MediaType.APPLICATION_JSON)
                 .expectBody()
                 .jsonPath("$.id").exists()
-                .jsonPath("$.userId").isEqualTo(userId);
+                .jsonPath("$.holderId").isEqualTo(userId);
     }
 }
