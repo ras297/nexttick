@@ -1,1 +1,3 @@
 rootProject.name = 'nexttick'
+
+include('backend')
