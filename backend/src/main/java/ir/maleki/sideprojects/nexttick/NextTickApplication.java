@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class NexttickApplication {
+public class NextTickApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(NexttickApplication.class, args);
+		SpringApplication.run(NextTickApplication.class, args);
 	}
 
 }
