@@ -1,7 +1,9 @@
 [versions]
 spring-boot = "3.5.10"
+jakarta-persistence = "3.1.0"
 
 [libraries]
+jakarta-persistence-api = { module = "jakarta.persistence:jakarta.persistence-api", version.ref = "jakarta-persistence" }
 
 [plugins]
 spring-boot = { id = "org.springframework.boot", version.ref = "spring-boot" }

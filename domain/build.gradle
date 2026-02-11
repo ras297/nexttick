@@ -1,0 +1,9 @@
+jar.enabled = true
+
+base {
+    archivesName = "timetally.domain"
+}
+
+dependencies {
+    compileOnly(libs.jakarta.persistence.api)
+}
