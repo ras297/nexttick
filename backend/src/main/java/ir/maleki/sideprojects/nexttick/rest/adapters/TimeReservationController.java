@@ -28,6 +28,6 @@ public class TimeReservationController {
                 .path("/{id}")
                 .buildAndExpand(timeSlot.id())
                 .toUri();
-        return ResponseEntity.created(location).body(new TimeSlotDto(timeSlot.id(), timeSlot.holder().id()));
+        return ResponseEntity.created(location).body(new TimeSlotDto(timeSlot.id(), timeSlot.holderId()));
     }
 }

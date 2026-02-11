@@ -17,6 +17,10 @@ public class TimeSlot extends BaseEntity {
     @Column(name = "IS_RESERVED")
     private Boolean reserved;
 
+    @Column(name = "holder_id", insertable = false, updatable = false)
+    private Long holderId;
+
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "holder_id")
     private User holder;
@@ -51,5 +55,10 @@ public class TimeSlot extends BaseEntity {
 
     public void setHolder(User holder) {
         this.holder = holder;
+        this.holderId = holder.id();
+    }
+
+    public Long holderId() {
+        return holderId;
     }
 }
