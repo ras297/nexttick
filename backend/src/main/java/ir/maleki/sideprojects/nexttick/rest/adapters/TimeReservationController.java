@@ -4,6 +4,7 @@ import ir.maleki.sideprojects.nexttick.application.reservation.ReserveTimeSlot;
 import ir.maleki.sideprojects.nexttick.application.reservation.TimeReservationService;
 import ir.maleki.sideprojects.nexttick.domain.TimeSlot;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +23,7 @@ public class TimeReservationController {
     }
 
     @PostMapping
-    public ResponseEntity<TimeSlotDto> createUser(@RequestBody ReserveTimeSlot request) {
+    public ResponseEntity<TimeSlotDto> createUser(@RequestBody @Validated ReserveTimeSlot request) {
         TimeSlot timeSlot = timeReservationService.reserveTimeSlot(request);
         if (timeSlot == null) {
             return ResponseEntity.noContent().build();

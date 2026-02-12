@@ -14,7 +14,10 @@ public class TimeReservationService {
 
     @Transactional
     public TimeSlot reserveTimeSlot(ReserveTimeSlot command) {
-        return repository.reserveNextAvailableSlot(command.userId());
+        if (command.holderId() == null) {
+            throw new IllegalStateException("User id is null");
+        }
+        return repository.reserveNextAvailableSlot(command.holderId());
     }
 
 }
