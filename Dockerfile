@@ -5,13 +5,15 @@ COPY gradle gradle
 COPY gradlew build.gradle settings.gradle ./
 
 RUN chmod +x gradlew
-RUN ./gradlew dependencies --no-daemon
+RUN --mount=type=cache,target=/home/gradle/.gradle \
+    ./gradlew dependencies --no-daemon
 
 COPY domain domain
 COPY application application
 COPY backend backend
 
-RUN ./gradlew bootJar --no-daemon
+RUN --mount=type=cache,target=/home/gradle/.gradle \
+    ./gradlew build --no-daemon
 
 FROM eclipse-temurin:21-jre
 WORKDIR /app
