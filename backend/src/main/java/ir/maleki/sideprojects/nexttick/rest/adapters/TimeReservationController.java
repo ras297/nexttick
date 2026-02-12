@@ -24,6 +24,9 @@ public class TimeReservationController {
     @PostMapping
     public ResponseEntity<TimeSlotDto> createUser(@RequestBody ReserveTimeSlot request) {
         TimeSlot timeSlot = timeReservationService.reserveTimeSlot(request);
+        if (timeSlot == null) {
+            return ResponseEntity.noContent().build();
+        }
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
                 .buildAndExpand(timeSlot.id())
