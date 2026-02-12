@@ -17,7 +17,18 @@ allprojects {
         mavenCentral()
     }
 
-    tasks.named('test') {
-        useJUnitPlatform()
+    subprojects {
+        tasks.withType(Test).configureEach {
+            useJUnitPlatform {
+                excludeTags 'e2e'
+            }
+        }
+
+        tasks.register('e2eTest', Test) {
+            useJUnitPlatform {
+                includeTags 'e2e'
+            }
+            shouldRunAfter test
+        }
     }
 }
