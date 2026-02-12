@@ -21,7 +21,7 @@ public class TimeReservationController {
     private final TimeReservationService timeReservationService;
 
     @PostMapping
-    public ResponseEntity<TimeSlotDto> createUser(@RequestBody @Validated ReserveTimeSlot request) {
+    public ResponseEntity<TimeSlotDto> reserveTimeSlot(@RequestBody @Validated ReserveTimeSlot request) {
         TimeSlot timeSlot = timeReservationService.reserveTimeSlot(request);
         if (timeSlot == null) {
             return ResponseEntity.noContent().build();
