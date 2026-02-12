@@ -11,6 +11,9 @@ dependencies {
 	implementation project(":domain")
 	implementation project(":application")
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	compileOnly libs.lombok
+	annotationProcessor libs.lombok
+
 	runtimeOnly 'org.postgresql:postgresql'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.boot:spring-boot-starter-webflux'

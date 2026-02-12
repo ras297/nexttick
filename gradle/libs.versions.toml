@@ -1,9 +1,12 @@
 [versions]
 spring-boot = "3.5.10"
 jakarta-persistence = "3.1.0"
+lombok = "1.18.42"
 
 [libraries]
 jakarta-persistence-api = { module = "jakarta.persistence:jakarta.persistence-api", version.ref = "jakarta-persistence" }
+lombok = { module = "org.projectlombok:lombok", version.ref = "lombok" }
+
 
 [plugins]
 spring-boot = { id = "org.springframework.boot", version.ref = "spring-boot" }
