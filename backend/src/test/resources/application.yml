@@ -12,12 +12,12 @@ spring:
 
   datasource:
     url: jdbc:postgresql://127.0.0.1:5432/testdb
-    username:
-    password:
+    username: postgres
+    password: admin
   flyway:
     locations: classpath:migration
 
 flyway:
-  enabled: true
-  baseline-on-migrate: true
-  locations: classpath:migration
+    enabled: true
+    baseline-on-migrate: true
+    locations: classpath:migration

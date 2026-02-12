@@ -11,6 +11,8 @@ dependencies {
 	implementation project(":domain")
 	implementation project(":application")
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.flywaydb:flyway-core'
+	implementation 'org.flywaydb:flyway-database-postgresql'
 	compileOnly libs.lombok
 	annotationProcessor libs.lombok
 
