@@ -19,7 +19,7 @@ WORKDIR /app
 RUN useradd -r -u 1001 spring
 USER spring
 
-COPY --from=build /app/build/libs/*.jar app.jar
+COPY --from=build /app/backend/build/libs/*.jar app.jar
 
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "app.jar"]

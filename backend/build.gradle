@@ -3,6 +3,7 @@ plugins {
 	alias(libs.plugins.dependency.management)
 }
 
+jar.enabled=false
 base {
 	archivesName = "nexttick.backend"
 }
