@@ -2,10 +2,15 @@ FROM gradle:8.6-jdk21 AS build
 WORKDIR /app
 
 COPY gradle gradle
-COPY gradlew build.gradle ./
+COPY gradlew build.gradle settings.gradle ./
+
+RUN chmod +x gradlew
 RUN ./gradlew dependencies --no-daemon
 
-COPY src src
+COPY domain domain
+COPY application application
+COPY backend backend
+
 RUN ./gradlew bootJar --no-daemon
 
 FROM eclipse-temurin:21-jre
