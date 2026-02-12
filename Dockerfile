@@ -21,6 +21,9 @@ WORKDIR /app
 RUN useradd -r -u 1001 spring
 USER spring
 
+COPY --chown=spring:spring wait-for-it.sh /app/wait-for-it.sh
+RUN chmod +x /app/wait-for-it.sh
+
 COPY --from=build /app/backend/build/libs/*.jar app.jar
 
 EXPOSE 8080
