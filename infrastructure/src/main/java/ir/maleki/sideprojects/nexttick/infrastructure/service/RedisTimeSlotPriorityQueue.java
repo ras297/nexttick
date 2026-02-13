@@ -4,10 +4,10 @@ import ir.maleki.sideprojects.nexttick.domain.service.TimeSlotInfo;
 import ir.maleki.sideprojects.nexttick.domain.service.TimeSlotPriority;
 import ir.maleki.sideprojects.nexttick.domain.service.TimeSlotPriorityQueue;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
-import java.util.Set;
 
 @Component
 public class RedisTimeSlotPriorityQueue implements TimeSlotPriorityQueue {
@@ -35,18 +35,11 @@ public class RedisTimeSlotPriorityQueue implements TimeSlotPriorityQueue {
 
     @Override
     public TimeSlotInfo poll() {
-        Set<String> result = redisTemplate.opsForZSet()
-                .range(KEY, 0, 0);
+        ZSetOperations.TypedTuple<String> tuple = redisTemplate.opsForZSet().popMin(KEY);
 
-        if (result == null || result.isEmpty()) {
-            return null;
-        }
+        if (tuple == null) return null;
 
-        String id = result.iterator().next();
-
-        redisTemplate.opsForZSet().remove(KEY, id);
-
-        return new TimeSlotInfo(Long.valueOf(id));
+        return new TimeSlotInfo(Long.valueOf(tuple.getValue()));
     }
 
     @Override
