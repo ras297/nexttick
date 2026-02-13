@@ -1,6 +1,6 @@
 package ir.maleki.sideprojects.nexttick.rest.adapters;
 
-import ir.maleki.sideprojects.nexttick.application.reservation.ReserveTimeSlot;
+import ir.maleki.sideprojects.nexttick.application.reservation.ReserveNextTimeSlot;
 import ir.maleki.sideprojects.nexttick.application.reservation.TimeReservationService;
 import ir.maleki.sideprojects.nexttick.domain.TimeSlot;
 import lombok.AllArgsConstructor;
@@ -21,8 +21,8 @@ public class TimeReservationController {
     private final TimeReservationService timeReservationService;
 
     @PostMapping
-    public ResponseEntity<TimeSlotDto> reserveTimeSlot(@RequestBody @Validated ReserveTimeSlot request) {
-        TimeSlot timeSlot = timeReservationService.reserveTimeSlot(request);
+    public ResponseEntity<TimeSlotDto> reserveTimeSlot(@RequestBody @Validated ReserveNextTimeSlot request) {
+        TimeSlot timeSlot = timeReservationService.reserveNextTimeSlot(request);
         if (timeSlot == null) {
             return ResponseEntity.noContent().build();
         }

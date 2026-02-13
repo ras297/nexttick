@@ -11,9 +11,9 @@ public class TimeReservationService {
     private final JpaTimeSlotRepository repository;
 
     @Transactional
-    public TimeSlot reserveTimeSlot(ReserveTimeSlot command) {
+    public TimeSlot reserveNextTimeSlot(ReserveNextTimeSlot command) {
         if (command.holderId() == null) {
-            throw new IllegalStateException("User id is null");
+            throw new IllegalStateException("Holder id is null");
         }
         return repository.reserveNextAvailableSlot(command.holderId());
     }
