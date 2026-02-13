@@ -53,12 +53,15 @@ public class TimeSlot extends BaseEntity {
         return holder;
     }
 
-    public void setHolder(User holder) {
-        this.holder = holder;
-        this.holderId = holder.id();
-    }
-
     public Long holderId() {
         return holderId;
+    }
+
+    public void reserveFor(User user) {
+        if (this.isReserved()) {
+            throw new IllegalStateException("Reserved time slot");
+        }
+        this.holder = user;
+        this.holderId = holder.id();
     }
 }
