@@ -3,6 +3,7 @@ package ir.maleki.sideprojects.nexttick.infrastructure.service;
 import ir.maleki.sideprojects.nexttick.domain.service.TimeSlotInfo;
 import ir.maleki.sideprojects.nexttick.domain.service.TimeSlotPriority;
 import ir.maleki.sideprojects.nexttick.domain.service.TimeSlotPriorityQueue;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
@@ -12,6 +13,7 @@ import java.util.Map;
 import java.util.PriorityQueue;
 
 @Component
+@Profile("test")
 public class InMemoryTimeSlotPriorityQueue implements TimeSlotPriorityQueue {
     private final PriorityQueue<TimeSlotPriority> heap;
     private final Map<Long, TimeSlotPriority> index;
