@@ -1,0 +1,16 @@
+plugins {
+    alias(libs.plugins.spring.boot)
+    alias(libs.plugins.dependency.management)
+}
+
+bootJar.enabled = false
+jar.enabled = true
+
+base {
+    archivesName = "nexttick.infrastructure"
+}
+
+dependencies {
+    implementation project(":domain")
+    implementation 'org.springframework:spring-context'
+}
