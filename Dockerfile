@@ -11,6 +11,7 @@ RUN --mount=type=cache,target=/home/gradle/.gradle \
 COPY domain domain
 COPY application application
 COPY backend backend
+COPY infrastructure infrastructure
 
 RUN --mount=type=cache,target=/home/gradle/.gradle \
     ./gradlew build --no-daemon
