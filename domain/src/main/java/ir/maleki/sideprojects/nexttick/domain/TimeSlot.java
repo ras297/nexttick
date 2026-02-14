@@ -8,6 +8,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 
 @Entity
 @Table(name = "AVAILABLE_SLOTS")
@@ -60,5 +61,15 @@ public class TimeSlot extends BaseEntity {
         this.reserved = true;
         this.holder = user;
         this.holderId = holder.id();
+    }
+
+    public void release() {
+        reserved = false;
+        this.holder = null;
+        this.holderId = null;
+    }
+
+    public Long startTimeEpochMilli() {
+        return this.startTime().atZone(ZoneOffset.UTC).toInstant().toEpochMilli();
     }
 }

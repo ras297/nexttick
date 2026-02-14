@@ -3,6 +3,7 @@ package ir.maleki.sideprojects.nexttick.application.reservation;
 import ir.maleki.sideprojects.nexttick.domain.TimeSlot;
 import ir.maleki.sideprojects.nexttick.domain.User;
 import ir.maleki.sideprojects.nexttick.domain.service.TimeSlotInfo;
+import ir.maleki.sideprojects.nexttick.domain.service.TimeSlotPriority;
 import ir.maleki.sideprojects.nexttick.domain.service.TimeSlotPriorityQueue;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -31,4 +32,19 @@ public class TimeReservationService {
         return timeSlot;
     }
 
+    @Transactional
+    public void cancelReservation(Long id) {
+        if (id == null) {
+            throw new IllegalArgumentException("id is null");
+        }
+        TimeSlot timeSlot = repository.findById(id).orElseThrow(() -> new IllegalArgumentException("id not found"));
+        if (!timeSlot.isReserved()) {
+            throw new IllegalStateException("TimeSlot is not reserved");
+        }
+        timeSlot.release();
+        repository.save(timeSlot);
+
+        timeSlotPriorityQueue.offer(new TimeSlotPriority(new TimeSlotInfo(timeSlot.id()),
+                timeSlot.startTimeEpochMilli()));
+    }
 }
