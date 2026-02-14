@@ -14,4 +14,6 @@ dependencies {
     implementation project(":domain")
     implementation 'org.springframework:spring-context'
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    compileOnly libs.lombok
+    annotationProcessor libs.lombok
 }
