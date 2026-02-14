@@ -45,10 +45,6 @@ public class TimeSlot extends BaseEntity {
         return reserved;
     }
 
-    public void setReserved(Boolean reserved) {
-        this.reserved = reserved;
-    }
-
     public User holder() {
         return holder;
     }
@@ -61,6 +57,7 @@ public class TimeSlot extends BaseEntity {
         if (this.isReserved()) {
             throw new IllegalStateException("Reserved time slot");
         }
+        this.reserved = true;
         this.holder = user;
         this.holderId = holder.id();
     }
