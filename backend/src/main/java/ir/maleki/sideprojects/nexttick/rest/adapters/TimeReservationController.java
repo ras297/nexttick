@@ -1,5 +1,7 @@
 package ir.maleki.sideprojects.nexttick.rest.adapters;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import ir.maleki.sideprojects.nexttick.application.reservation.ReserveNextTimeSlot;
 import ir.maleki.sideprojects.nexttick.application.reservation.TimeReservationService;
 import ir.maleki.sideprojects.nexttick.domain.TimeSlot;
@@ -19,9 +21,11 @@ import java.net.URI;
 @AllArgsConstructor
 @RestController
 @RequestMapping("/api/reservations")
+@Tag(name = "Time Slot API", description = "Operations related to time slot reservation/cancellation")
 public class TimeReservationController {
     private final TimeReservationService timeReservationService;
 
+    @Operation(summary = "Reserve Time Slot", description = "Reserve the nearest available time slot for the user")
     @PostMapping
     public ResponseEntity<TimeSlotDto> reserveTimeSlot(@RequestBody @Validated ReserveNextTimeSlot request) {
         TimeSlot timeSlot = timeReservationService.reserveNextTimeSlot(request);
@@ -35,6 +39,7 @@ public class TimeReservationController {
         return ResponseEntity.created(location).body(new TimeSlotDto(timeSlot.id(), timeSlot.holderId()));
     }
 
+    @Operation(summary = "Cancel Reservation", description = "Cancel and release a reserved time slot")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> cancel(@PathVariable Long id) {
         timeReservationService.cancelReservation(id);
