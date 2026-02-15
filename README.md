@@ -80,10 +80,10 @@ java -jar backend/build/libs/app.jar
 
 # REST API Overview
 
-| Method | Endpoint | Description | Status |
-|--------|-----------|-------------|--------|
+| Method | Endpoint | Description | Status      |
+|--------|-----------|-------------|-------------|
 | POST | /reservations | Reserve nearest available slot | Implemented |
-| DELETE | /reservations/{id} | Cancel reservation | Planned |
+| DELETE | /reservations/{id} | Cancel reservation | Implemented |
 
 Example Response:
 
@@ -133,9 +133,6 @@ Because this is a side project with limited time, some features are missing:
 - Tracing
 - Alerting
 
-## APIs
-- Reservation cancellation endpoint planned
-- Admin APIs for queue rebuild
 
 ## Reliability
 - Distributed lock improvements
