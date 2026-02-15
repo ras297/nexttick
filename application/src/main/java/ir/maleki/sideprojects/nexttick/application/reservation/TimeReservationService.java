@@ -33,13 +33,20 @@ public class TimeReservationService {
     }
 
     @Transactional
-    public void cancelReservation(Long id) {
-        if (id == null) {
+    public void cancelReservation(CancelTimeSlot command) {
+        if (command.id() == null) {
             throw new IllegalArgumentException("id is null");
         }
-        TimeSlot timeSlot = repository.findById(id).orElseThrow(() -> new IllegalArgumentException("id not found"));
+        if (command.holderId() == null) {
+            throw new IllegalArgumentException("holder id is null");
+        }
+
+        TimeSlot timeSlot = repository.findById(command.id()).orElseThrow(() -> new IllegalArgumentException("TimeSlot not found"));
         if (!timeSlot.isReserved()) {
             throw new IllegalStateException("TimeSlot is not reserved");
+        }
+        if (!timeSlot.isReservedByUser(command.holderId())) {
+            throw new IllegalStateException("TimeSlot is not reserved by user");
         }
         timeSlot.release();
         repository.save(timeSlot);

@@ -2,6 +2,8 @@ package ir.maleki.sideprojects.nexttick.rest.adapters;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import ir.maleki.sideprojects.nexttick.application.reservation.CancelTimeSlot;
+import ir.maleki.sideprojects.nexttick.application.reservation.HolderRequest;
 import ir.maleki.sideprojects.nexttick.application.reservation.ReserveNextTimeSlot;
 import ir.maleki.sideprojects.nexttick.application.reservation.TimeReservationService;
 import ir.maleki.sideprojects.nexttick.domain.TimeSlot;
@@ -41,8 +43,8 @@ public class TimeReservationController {
 
     @Operation(summary = "Cancel Reservation", description = "Cancel and release a reserved time slot")
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> cancel(@PathVariable Long id) {
-        timeReservationService.cancelReservation(id);
+    public ResponseEntity<Void> cancel(@PathVariable Long id, @RequestBody @Validated HolderRequest request) {
+        timeReservationService.cancelReservation(new CancelTimeSlot(id, request.holderId()));
         return ResponseEntity.noContent().build();
     }
 }

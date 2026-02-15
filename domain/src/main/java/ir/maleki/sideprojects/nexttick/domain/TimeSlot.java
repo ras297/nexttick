@@ -72,4 +72,11 @@ public class TimeSlot extends BaseEntity {
     public Long startTimeEpochMilli() {
         return this.startTime().atZone(ZoneOffset.UTC).toInstant().toEpochMilli();
     }
+
+    public boolean isReservedByUser(Long userId) {
+        if (this.isReserved()) {
+            return holderId.equals(userId);
+        }
+        return false;
+    }
 }
