@@ -2,10 +2,12 @@
 spring-boot = "3.5.10"
 jakarta-persistence = "3.1.0"
 lombok = "1.18.42"
+springdoc = "2.8.15"
 
 [libraries]
 jakarta-persistence-api = { module = "jakarta.persistence:jakarta.persistence-api", version.ref = "jakarta-persistence" }
 lombok = { module = "org.projectlombok:lombok", version.ref = "lombok" }
+springdoc-openapi-ui = { module = "org.springdoc:springdoc-openapi-starter-webmvc-ui", version.ref = "springdoc" }
 
 
 [plugins]
