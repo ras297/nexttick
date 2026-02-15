@@ -8,6 +8,14 @@ services:
             - postgres_data:/var/lib/postgresql/data
         ports:
             - "5432:5432"
+        deploy:
+            resources:
+                limits:
+                    cpus: '2'
+                    memory: 4G
+                reservations:
+                    cpus: '2'
+                    memory: 4G
 
     redis:
         image: redis:7
@@ -15,6 +23,14 @@ services:
         ports:
             - "6379:6379"
         restart: unless-stopped
+        deploy:
+            resources:
+                limits:
+                    cpus: '1'
+                    memory: 2G
+                reservations:
+                    cpus: '1'
+                    memory: 2G
 
     app:
         build: .
@@ -26,8 +42,16 @@ services:
             - "8080:8080"
         env_file:
             - app.env
-        command: ["./wait-for-it.sh", "postgres:5432", "--", "java", "-jar", "app.jar"]
+        command: ["./wait-for-it.sh", "postgres:5432", "--", "java", "-Xms6G", "-Xmx6G", "-jar", "app.jar"]
         restart: unless-stopped
+        deploy:
+            resources:
+                limits:
+                    cpus: '4'
+                    memory: 6G
+                reservations:
+                    cpus: '4'
+                    memory: 6G
 
 volumes:
     postgres_data:
