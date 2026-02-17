@@ -8,14 +8,8 @@ services:
             - postgres_data:/var/lib/postgresql/data
         ports:
             - "5432:5432"
-        deploy:
-            resources:
-                limits:
-                    cpus: '2'
-                    memory: 4G
-                reservations:
-                    cpus: '2'
-                    memory: 4G
+        cpus: '4'
+        mem_limit: 6G
 
     redis:
         image: redis:7
@@ -23,39 +17,30 @@ services:
         ports:
             - "6379:6379"
         restart: unless-stopped
-        deploy:
-            resources:
-                limits:
-                    cpus: '1'
-                    memory: 2G
-                reservations:
-                    cpus: '1'
-                    memory: 2G
+        cpus: '1'
+        mem_limit: 2G
 
     app:
         build: .
         container_name: NextTick-app
+        network_mode: host
+
         ulimits:
             nofile:
                 soft: 100000
                 hard: 100000
+
         depends_on:
             - postgres
             - redis
-        ports:
-            - "8080:8080"
+
         env_file:
             - app.env
-        command: ["./wait-for-it.sh", "postgres:5432", "--", "java", "-Xms6G", "-Xmx6G", "-jar", "app.jar"]
+
+        command: ["./wait-for-it.sh", "localhost:5432", "--", "java", "-Xms4G", "-Xmx4G", "-jar", "app.jar"]
         restart: unless-stopped
-        deploy:
-            resources:
-                limits:
-                    cpus: '4'
-                    memory: 6G
-                reservations:
-                    cpus: '4'
-                    memory: 6G
+        cpus: '4'
+        mem_limit: 6G
 
 volumes:
     postgres_data:
